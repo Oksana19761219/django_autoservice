@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Autoservisas "Miklios rankos"</h1>
+  <p>Mūsų darbai:</p>
+  <ul>
+    <li><strong>Įvairių paslaugų kiekis:</strong> {{ service_count }}</li>
+    <li><strong>Priimta užsakymų:</strong> {{ order_count }}</li>
+    <li><strong>Atlikta užsakymų:</strong> {{ order_finished_count }}</li>
+    <li><strong>Aptarnauta automobilių:</strong> {{ car_count }}</li>
+  </ul>
+{% endblock %}
