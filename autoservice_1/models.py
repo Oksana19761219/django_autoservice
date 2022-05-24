@@ -22,7 +22,7 @@ class Model(models.Model):
     )
 
     def __str__(self):
-        return f'{self.car_brand} {self.car_model}, {self.year}'
+        return f'{self.car_brand} {self.car_model}, {self.year} m.'
 
     def get_absolute_url(self):
         return reverse('model-detail', args=[str(self.id)])
@@ -86,7 +86,7 @@ class Service(models.Model):
     )
 
     def __str__(self):
-        return f'{self.name}, {self.price}'
+        return f'{self.name}, kaina: {self.price}'
 
     class Meta:
         ordering = ['name']

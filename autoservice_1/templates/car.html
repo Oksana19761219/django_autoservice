@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container author">
+    <h4>numeris: {{car.number}}</h4>
+    <h4>vin: {{car.vin_number}}</h4>
+    <h4>modelis: {{car.model_id}}</h4>
+
+    </br>
+    <h5>Atlikome šiuos automobilio užsakymus:</h5>
+    {% for order in car.orders.all %}
+        {% for order_line in order.orders_lines.all %}
+           <li>{{order_line.service_id}}: {{ order_line.quantity}} vnt.</li>
+        {% endfor %}
+    {% endfor %}
+    </div>
+{% endblock %}
