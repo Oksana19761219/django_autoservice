@@ -61,6 +61,8 @@ class Car(models.Model):
         help_text='Enter client name'
     )
 
+    image = models.ImageField('image', upload_to='images', null=True)
+
     def __str__(self):
         return f'{self.number}, {self.model_id}'
 
