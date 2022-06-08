@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container author">
+    <h4>numeris: {{car.number}}</h4>
+    <h4>vin: {{car.vin_number}}</h4>
+    <h4>modelis: {{car.model_id}}</h4>
+
+    </br>
+    <h5>Atlikome šiuos automobilio užsakymus:</h5>
+    {% for order in car.orders.all %}
+        {% for order_line in order.orders_lines.all %}
+           <li>{{order_line.service_id}}: {{ order_line.quantity}} vnt.</li>
+        {% endfor %}
+
+        {% if user.is_authenticated %}
+          <div class="fieldWrapper">
+            <hr><br/>
+            <h4>Palikite atsiliepimą:</h4>
+            <form action="" method="post">
+              {% csrf_token %}
+              {{ form.content }}</br>
+              <input type="submit" value="Išsaugoti">
+            </form>
+          </div>
+        {% endif %}
+
+    {% endfor %}
+    </div>
+{% endblock %}
+
+
+

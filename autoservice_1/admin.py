@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Model, Car, Service, Order, OrderLine
+from .models import Model, Car, Service, Order, OrderLine, OrderReview
 
 
 class ModelAdmin(admin.ModelAdmin):
@@ -11,7 +11,7 @@ class OrderInline(admin.TabularInline):
     extra = 0 # išjungia placeholder'ius
 
 class CarAdmin(admin.ModelAdmin):
-    list_display = ('model_id', 'number', 'vin_number', 'client')
+    list_display = ('model_id', 'number', 'vin_number', 'client', 'client_id')
     list_filter = ('client', 'model_id')
     search_fields = ('client', 'number')
     inlines = [OrderInline]
@@ -31,7 +31,11 @@ class ServiceAdmin(admin.ModelAdmin):
     list_display = ('name', 'price')
 
 
+class OrderReviewAdmin(admin.ModelAdmin):
+    list_display = ('order_id', 'date_created', 'reviewer', 'content')
 
+
+admin.site.register(OrderReview, OrderReviewAdmin)
 admin.site.register(Model, ModelAdmin)
 admin.site.register(Car, CarAdmin)
 admin.site.register(Order, OrderAdmin)

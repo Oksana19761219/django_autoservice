@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block content %}
+    <h1>{% trans "my orders"|capfirst %}:</h1>
+    {% if order_list %}
+        <ul>
+            {% for order in order_list %}
+                <p>{{order.data}}: {{order.car_id}}</p>
+                <hr>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>{% trans "you have no orders at this time"|capfirst%}</p>
+    {% endif %}
+{% endblock %}

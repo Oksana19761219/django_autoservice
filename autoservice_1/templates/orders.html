@@ -1,24 +1,37 @@
 {% extends "base.html" %}
+{% load static i18n %}
 
 {% block content %}
-  <h1>Užsakymų sąrašas</h1>
+  <h1>{% trans "list of orders"|capfirst%}</h1>
   {% if orders %}
-  <ul>
-    {% for order in orders %}
-      <li>
-        <a href="{{ order.id }}">{{ order.data }}</a> automobilis: {{order.car_id}}, status: {{order.status}}
-      </li>
-    {% endfor %}
-  </ul>
+      <ul>
+        {% for order in orders %}
+          <hr>
+          <li>
+            <a href="{{ order.id }}">{{ order.data }}</a> {% trans "car" %}: {{order.car_id}}, {% trans "order status" %}: {{order.status}}
+          </li>
+
+          <h4>{% trans "reviews"|capfirst %}:</h4>
+          {% if order.review.all %}
+            {% for review in order.review.all %}
+              <strong>{{ review.reviewer }}</strong>, <em>{{ review.date_created}}</em>
+              <p>{{ review.content }}</p>
+            {% endfor %}
+          {% else %}
+            <p>{% trans "no reviews" %}</p>
+          {% endif %}
+        {% endfor %}
+      </ul>
+
   {% else %}
-    <p>Užsakymų nėra.</p>
+    <p>{% trans "no orders"|capfirst%}</p>
   {% endif %}
 
   <div class="pagination">
     <span class="step-links">
         {% if page_obj.has_previous %}
             <a href="?page=1">&laquo; pirmas</a>
-            <a href="?page={{ page_obj.previous_page_number }}">atgal</a>
+            <a href="?page={{ page_obj.previous_page_number }}">{% trans "return" %}</a>
         {% endif %}
 
         <span class="current">
@@ -26,8 +39,8 @@
         </span>
 
         {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">pirmyn</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}">paskutinis &raquo;</a>
+            <a href="?page={{ page_obj.next_page_number }}">{% trans "next" %}</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">{% trans "end" %}</a>
         {% endif %}
     </span>
 </div>

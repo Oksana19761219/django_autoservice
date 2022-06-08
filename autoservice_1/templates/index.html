@@ -1,14 +1,14 @@
 {% extends "base.html" %}
+{% load static i18n %}
 
 {% block content %}
-  <h1>Autoservisas "Miklios rankos"</h1>
-  <p>Mūsų darbai:</p>
+  <h1>{% trans "car service"|capfirst %}</h1>
+  <p>{% trans "our works"|capfirst%}:</p>
   <ul>
-    <li><strong>Įvairių paslaugų kiekis:</strong> {{ service_count }}</li>
-    <li><strong>Priimta užsakymų:</strong> {{ order_count }}</li>
-    <li><strong>Atlikta užsakymų:</strong> {{ order_finished_count }}</li>
-    <li><strong>Aptarnauta automobilių:</strong> {{ car_count }}</li>
+    <li><strong>{% trans "orders accepted"|capfirst %}:</strong> {{ order_count }}</li>
+    <li><strong>{% trans "orders completed"|capfirst %}:</strong> {{ order_finished_count }}</li>
+    <li><strong>{% trans "cars serviced"|capfirst %}:</strong> {{ car_count }}</li>
   </ul>
-  <p>Čia jūs lankotes {{ num_visits }}-ą kartą.</p>
+  <p>{% blocktrans %}You're coming here for the {{ num_visits }} time.{% endblocktrans %}</p>
 
 {% endblock %}

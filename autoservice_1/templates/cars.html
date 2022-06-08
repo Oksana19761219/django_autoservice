@@ -1,55 +1,47 @@
 {% extends "base.html" %}
+{% load static i18n %}
 
 {% block content %}
-  <h1>Automobiliai</h1>
-  <p>Mūsų aptarnaujamų automobilių sąrašas.</p>
-  {% for car in cars %}
-<li><a href="{% url 'car' car.id %}">{{car.number}} {{car.vin_number}} {{car.model_id}}</a></li>
+    <h1>{% trans "cars"|capfirst%}</h1>
+    <p>{% trans "List of cars"|capfirst %}</p>
+    {% for car in cars %}
+        <li><a href="{% url 'car' car.id %}">{{car.number}} {{car.vin_number}} {{car.model_id}}</a></li>
     {% endfor %}
 
-
-        <div class="row">
-              {% for car in cars %}
-                <div class="col-md-4 d-flex align-items-stretch">
-                  <div class="card mb-4 shadow-sm">
+    <div class="row">
+        {% for car in cars %}
+            <div class="col-md-4 d-flex align-items-stretch">
+                <div class="card mb-4 shadow-sm">
                     {% if car.image %}
-                      <img src="{{ car.image.url }}" class="card-img-top" alt="...">
+                        <img src="{{ car.image.url }}" class="card-img-top" alt="...">
                     {% endif %}
                     <div class="card-body">
-                      <h6 class="card-subtitle mb-2 text-muted">{{car.client}}</h6>
-                      <p class="card-text"><a href="{{ car.id }}">{{car.number}}, {{car.model_id}}</a></p>
+                        <h6 class="card-subtitle mb-2 text-muted">{{car.client}}</h6>
+                        <p class="card-text"><a href="{{ car.id }}">{{car.number}}, {{car.model_id}}</a></p>
                     </div>
-                  </div>
                 </div>
-              {% endfor %}
-        </div>
+            </div>
+        {% endfor %}
+    </div>
 
-
-
-
-
-
-
-<div class="container puslapiai">
-    <nav aria-label="...">
-        {% if cars.has_other_pages %}
-            <ul class="pagination pagination-sm justify-content-end">
-                {% for page_number in cars.paginator.page_range %}
-                    {% if cars.number == page_number %}
-                        <li class="page-item active">
-                            <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
-                        </li>
-                    {% else %}
-                        <li class="page-item">
-                            <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
-                        </li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
-        {% endif %}
-    </nav>
-</div>
-
-
+    <div class="container puslapiai">
+        <nav aria-label="...">
+            {% if cars.has_other_pages %}
+                <ul class="pagination pagination-sm justify-content-end">
+                    {% for page_number in cars.paginator.page_range %}
+                        {% if cars.number == page_number %}
+                            <li class="page-item active">
+                                <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </nav>
+    </div>
 
 {% endblock %}

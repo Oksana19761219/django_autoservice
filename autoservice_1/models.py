@@ -1,5 +1,7 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
+from django.utils.translation import gettext_lazy as _
 
 
 class Model(models.Model):
@@ -61,6 +63,14 @@ class Car(models.Model):
         help_text='Enter client name'
     )
 
+    client_id = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        # null=False,
+        verbose_name='client',
+        related_name='cars'
+    )
+
     image = models.ImageField('image', upload_to='images', null=True)
 
     def __str__(self):
@@ -107,7 +117,7 @@ class Order(models.Model):
         Car,
         null=False,
         on_delete=models.CASCADE,
-        verbose_name='Car',
+        verbose_name='car',
         related_name='orders'
     )
 
@@ -144,7 +154,7 @@ class OrderLine(models.Model):
         null=False,
         on_delete=models.CASCADE,
         verbose_name='order',
-        related_name='orders_lines'
+        related_name='order_lines'
     )
     quantity = models.IntegerField(
         'quantity',
@@ -163,3 +173,25 @@ class OrderLine(models.Model):
 
     def get_absolute_url(self):
         return reverse('order-line-detail', args=[str(self.id)])
+
+
+class OrderReview(models.Model):
+    order_id = models.ForeignKey(
+        'Order',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name = 'order',
+        related_name = 'review',
+    )
+    reviewer = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True
+    )
+    content = models.TextField(
+        'Review',
+        max_length=2000
+    )
+    date_created = models.DateTimeField(auto_now_add=True)

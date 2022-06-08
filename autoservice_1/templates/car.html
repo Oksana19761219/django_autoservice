@@ -1,16 +1,17 @@
 {% extends "base.html" %}
+{% load static i18n %}
 
 {% block content %}
     <div class="container author">
-    <h4>numeris: {{car.number}}</h4>
-    <h4>vin: {{car.vin_number}}</h4>
-    <h4>modelis: {{car.model_id}}</h4>
+    <h4>{% trans "number"|capfirst %}: {{car.number}}</h4>
+    <h4>{% trans "vin-number"|capfirst %}: {{car.vin_number}}</h4>
+    <h4>{% trans "model"|capfirst%}: {{car.model_id}}</h4>
 
     </br>
-    <h5>Atlikome šiuos automobilio užsakymus:</h5>
+    <h5>{%trans "orders"|capfirst%}:</h5>
     {% for order in car.orders.all %}
         {% for order_line in order.orders_lines.all %}
-           <li>{{order_line.service_id}}: {{ order_line.quantity}} vnt.</li>
+           <li>{{order_line.service_id}}: {{ order_line.quantity}}.</li>
         {% endfor %}
     {% endfor %}
     </div>
